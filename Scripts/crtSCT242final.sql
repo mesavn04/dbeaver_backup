@@ -27,7 +27,8 @@ AND OffstAcct64 = shortacct24
 
 DROP TABLE sct_242_final;
 
-CREATE TABLE sct_242_final AS
+
+-- CREATE TABLE sct_242_final AS
 SELECT DISTINCT sn.Id24,sxn.Id64, sn.Account24, sn.Line24,sxn.Line64, sn.PostingDate24,
 sn.TransID24,sn.TaxDate24,sn.Description24,sn.OffstAcct24,
 IIF(sn.OffstAcct24 NOT LIKE '64%', sn.Debit24, sxn.Credit64) AS Dr24,
@@ -43,6 +44,7 @@ FROM sct_242_N sn
 LEFT JOIN sct_64x_N sxn
 ON sn.ShortAcct24 = sxn.OffstAcct64
 AND sn.TransID24 = sxn.TransID64
+WHERE sn.TransID24 LIKE '373657'
 ORDER BY sn.Account24,sn.Line24,sxn.Line64
 ;
 
@@ -71,7 +73,7 @@ SELECT * FROM sct_242_final sf
 
 /* An example deduplicate in sqlite
  * https://database.guide/2-ways-to-delete-duplicate-rows-in-sqlite/
-*/
+
 CREATE TABLE Pets (
 PetID INT,
 PetName TEXT,
@@ -123,3 +125,5 @@ WHERE rowid > (
 );
 
 SELECT * FROM Pets;
+
+*/
